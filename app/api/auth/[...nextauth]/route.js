@@ -1,21 +1,18 @@
-import prisma from "@/lib/prisma";
-import { PrismaAdapter } from "@auth/prisma-adapter";
 import NextAuth from "next-auth";
 import GithubProvider from "next-auth/providers/github";
 
 const authOptions = {
   // Configure one or more authentication providers
-  adapter: PrismaAdapter(prisma),
   providers: [
     GithubProvider({
-      clientId: process.env.GOOGLE_ID,
-      clientSecret: process.env.GOOGLE_SECRET,
+      clientId: process.env.GITHUB_ID,
+      clientSecret: process.env.GITHUB_SECRET,
     }),
   ],
   callbacks: {
     session: async ({ session, token, user }) => {
-      if (session?.user) {
-        session.user.id = user.id;
+      if (token?.sub) {
+        session.user.id = token.sub;
       }
       return session;
     },
