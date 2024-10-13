@@ -38,7 +38,7 @@ export default function RootLayout({
         <body
           className={`${geistSans.variable} ${geistMono.variable} antialiased`}
         >
-          <Signin/>
+          {children}
         </body>
       </html>
     </Provider>

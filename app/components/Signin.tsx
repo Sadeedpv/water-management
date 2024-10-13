@@ -1,5 +1,5 @@
 'use client'
-import { signIn, useSession } from "next-auth/react";
+import { signIn, signOut, useSession } from "next-auth/react";
 
 export default () => {
     const { data: session } = useSession();
@@ -8,10 +8,10 @@ export default () => {
       <>
         <button
           onClick={() => {
-            session ? alert("Signed-in") : signIn();
+            session ? signOut() : signIn();
           }}
         >
-          Sign in
+          {session? 'Sign-out':'Sign-in'}
         </button>
       </>
     );

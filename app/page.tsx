@@ -1,7 +1,7 @@
 'use client'
 import { useEffect } from "react";
 import { baseUrl } from "@/lib/constants";
-import { signIn, useSession } from "next-auth/react";
+import Signin from "./components/Signin";
 
 
 export default function Home() {
@@ -22,6 +22,7 @@ export default function Home() {
   return (
     <div>
       HELLO WORLD!
+      <Signin />
     </div>
   );
 }
