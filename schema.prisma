@@ -14,7 +14,16 @@ model User {
   id            String       @default(cuid()) @id
   name          String?
   email         String?   @unique
-  location      String?
+  location      String? @default("India")
   totalUsage    Int     @default(0)
   UsageLimit    Int     @default(0)
+  watermodel  WaterModel[]
+}
+
+model WaterModel{
+  Model User @relation(fields: [ModelId], references: [id])
+  ModelId String
+  name String @unique
+  totalUsage Int @default(0)
+  UsageLimit Int @default(0)
 }
