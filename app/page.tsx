@@ -1,16 +1,20 @@
-'use client'
+"use client";
 import Signin from "./components/Signin";
 import { useSession } from "next-auth/react";
-import Dashboard from "./components/Dashboard";
-
+import { useRouter } from "next/navigation";
+import { useEffect } from "react";
+import { baseUrl } from "@/lib/constants";
 
 export default function Home() {
   const { data: session } = useSession();
-  return session?
-  (
-      <Dashboard />
-  ): (
-      <Signin />
-  );
-}
+  const router = useRouter();
 
+  useEffect(() => {
+    router.push(`/dashboard`);
+  }, [session,router]);
+  if (!session) {
+    return (
+      <Signin />
+    )
+  }
+}

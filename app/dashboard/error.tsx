@@ -18,7 +18,7 @@ export default function Error({
     <div className="flex items-center justify-center min-h-screen flex-col">
       <h2>Oops! Something went wrong!</h2>
       <button
-        className="group relative h-12 w-36 overflow-hidden rounded-xl primary-clr text-lg font-bold text-white mt-4"
+        className="group relative h-12 w-36 overflow-hidden rounded-xl primary-clr text-lg font-bold text-white"
         onClick={
           // Attempt to recover by trying to re-render the segment
           () => reset()
