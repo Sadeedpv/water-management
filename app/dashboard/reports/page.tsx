@@ -1,7 +1,6 @@
 "use client";
 
 import { baseUrl } from "@/lib/constants";
-import axios from "axios";
 import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
 
