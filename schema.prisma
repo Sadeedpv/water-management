@@ -26,4 +26,5 @@ model WaterModel{
   name String @unique
   totalUsage Int @default(0)
   UsageLimit Int @default(0)
+  Date  DateTime @default(now())
 }

@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
 import Provider from "@/app/components/Provider";
+import { createContext, useState } from "react";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -26,11 +27,13 @@ export const metadata: Metadata = {
   ],
 };
 
+
 export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+
   return (
     <Provider>
       <html lang="en">
@@ -39,7 +42,7 @@ export default function RootLayout({
         >
           {children}
         </body>
-      </html>
+        </html>
     </Provider>
   );
 }
