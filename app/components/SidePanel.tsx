@@ -8,31 +8,33 @@ import {
   Settings2,
   UserPen,
 } from "lucide-react";
-import { useContext, useState } from "react";
-import { ActiveContext } from "../dashboard/layout";
+import {  useState } from "react";
+import { usePathname, useRouter } from "next/navigation";
+import { baseUrl } from "@/lib/constants";
 
 export default () => {
   const [open, setOpen] = useState(true);
-  const active = useContext(ActiveContext);
-  console.log(active);
+  const router = useRouter();
+  const pathName = usePathname();
+  console.log("pathname :" ,pathName);
   const Menus = [
-    { title: "Home", src: <House size={30} /> },
-    { title: "Settings", src: <Settings size={30} /> },
-    { title: "Preference ", src: <Settings2 size={30} /> },
-    { title: "Reports", src: <ChartNoAxesColumn size={30} /> },
-    { title: "Profile", src: <UserPen size={30} /> },
+    { title: "Home", src: <House size={30} />, path: `/dashboard/home` },
+    { title: "Preference ", src: <Settings2 size={30} />, path: `/dashboard/preference` },
+    { title: "Reports", src: <ChartNoAxesColumn size={30} />, path: `/dashboard/reports` },
+    { title: "Profile", src: <UserPen size={30} />, path: `/dashboard/profile` },
   ];
+
 
   return (
     <div
       className={` ${
-        open ? "w-64" : "w-20 "
-      }  h-screen p-5  pt-8 relative duration-300  shadow-2xl bg-gray-800`}
+        open ? "w-64" : "w-10 md:wd-20"
+      }  h-screen p-5  pt-8 fixed z-10 duration-300  shadow-2xl bg-gray-800`}
     >
       <CircleChevronLeft
         size={30}
         color="#2563eb"
-        className={`absolute cursor-pointer -right-2 top-11 w-7 mr-5
+        className={`absolute cursor-pointer -right-2 top-11 w-7 mr-3 md:mr-5
              ${!open && "rotate-180"}`}
         onClick={() => setOpen(!open)}
       />
@@ -54,22 +56,20 @@ export default () => {
         {Menus.map((Menu, index) => (
           <li
             key={index}
-            className={`flex  rounded-md p-2 cursor-pointer hover:bg-light-white text-gray-300 text-sm items-center m-5 gap-x-4 
+            className={`flex  rounded-md p-2 cursor-pointer hover:bg-light-white text-sm items-center m-5 gap-x-4 
                 hover:text-[#2563eb]
-               ${index === 0 && "bg-light-white"} ${
-              active.active === Menu.title && "text-[#2563eb]"
-              }`}
+                ${pathName == Menu.path ? "text-[#2563eb]" : "text-gray-300"}`}
             onClick={() => {
-              // change context to menu.title
-              active.setActive(Menu.title)
+              // change localstorage to menu.title
+              router.push(`${baseUrl}/dashboard/${Menu.title.toLowerCase()}`);
             }}
           >
             {Menu.src}
             <span
               className={`${
                 !open && "hidden"
-              } origin-left duration-200 text-gray-200 text-lg font-extrabold hover:text-[#2563eb] ${
-                active.active === Menu.title && "text-[#2563eb]"
+              } origin-left duration-200 text-lg font-extrabold hover:text-[#2563eb] ${
+                pathName == Menu.path ? "text-[#2563eb]" : "text-gray-200"
               }`}
             >
               {Menu.title}

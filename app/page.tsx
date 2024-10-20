@@ -10,7 +10,7 @@ export default function Home() {
   const router = useRouter();
 
   useEffect(() => {
-    router.push(`/dashboard`);
+    router.push(`/dashboard/home`);
   }, [session,router]);
   if (!session) {
     return (
