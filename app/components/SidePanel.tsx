@@ -13,7 +13,9 @@ import { usePathname, useRouter } from "next/navigation";
 import { baseUrl } from "@/lib/constants";
 
 export default () => {
-  const [open, setOpen] = useState(true);
+  const [open, setOpen] = useState(
+    window.innerWidth > 640 ? true : false,
+  );
   const router = useRouter();
   const pathName = usePathname();
   console.log("pathname :" ,pathName);

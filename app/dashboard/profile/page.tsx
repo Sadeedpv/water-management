@@ -72,9 +72,8 @@ export default () => {
             <button
               className="group relative h-10 w-28 overflow-hidden rounded-xl primary-clr text-sm font-bold text-white flex flex-row items-center justify-center gap-2"
               onClick={() => {
-                  signOut().then(() => { 
-                      router.push(baseUrl);
-                  });
+                signOut();
+                router.push(`${baseUrl}/`);
               }}
             >
               Sign-out <LogOut size={18} />

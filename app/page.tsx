@@ -10,11 +10,14 @@ export default function Home() {
   const router = useRouter();
 
   useEffect(() => {
-    router.push(`/dashboard/home`);
+    if (session) {
+      console.log("session after logging out",session);
+      router.push(`/dashboard/home`);      
+    }
   }, [session,router]);
   if (!session) {
     return (
       <Signin />
     )
-  }
+  } 
 }
