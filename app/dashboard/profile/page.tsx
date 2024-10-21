@@ -42,12 +42,12 @@ export default () => {
       const req = await fetch(
         `${baseUrl}/api/location?email=${session?.user?.email}`
       );
-      const res = await req.json();
+      const res = await req?.json();
       const data = res.location;
       setLocation(data.location);
     };
     getLocation();
-  });
+  },[]);
   return (
     <div className="h-screen flex-1 p-7 items-center justify-center flex">
       <div className="py-8 px-12 mx-auto bg-white rounded-xl shadow-lg space-y-2 sm:py-4 sm:flex sm:items-center sm:space-y-0 sm:space-x-6">

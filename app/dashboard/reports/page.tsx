@@ -1,5 +1,6 @@
 "use client";
 
+import Waterdata from "@/app/components/Waterdata";
 import { baseUrl } from "@/lib/constants";
 import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
@@ -13,7 +14,7 @@ export default () => {
   const [temperature, setTemperature] = useState(0);
 
   const getRandomNo = () => {
-    let no = Math.floor((Math.random() * 100) + 1);
+    let no = Math.floor((Math.random() * (80 - 40 + 1)+40));
     return no;
   }
   useEffect(() => {
@@ -80,12 +81,13 @@ export default () => {
           <p className="font-bold">Temperature {temperature}%</p>
           <div className="w-1/2 bg-gray-200 rounded-full h-6">
             <div
-              className={`bg-red-500 h-6 rounded-full}`}
+              className={`bg-red-500 h-6 rounded-full`}
               style={{ width: `${temperature}%` }}
             ></div>
           </div>
         </div>
       </div>
+      <Waterdata />
     </div>
   );
 };

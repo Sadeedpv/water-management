@@ -21,10 +21,10 @@ model User {
 }
 
 model WaterModel{
-  Model User @relation(fields: [ModelId], references: [id])
-  ModelId String
-  name String @unique
+  Model User @relation(fields: [ModelEmail], references: [email])
+  ModelEmail String
+  Modelname String @unique
   totalUsage Int @default(0)
   UsageLimit Int @default(0)
-  Date  DateTime @default(now())
+  Date  DateTime @default(now()) @db.Date
 }

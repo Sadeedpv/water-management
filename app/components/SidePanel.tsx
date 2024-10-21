@@ -21,7 +21,7 @@ export default () => {
   console.log("pathname :" ,pathName);
   const Menus = [
     { title: "Home", src: <House size={30} />, path: `/dashboard/home` },
-    { title: "Preference ", src: <Settings2 size={30} />, path: `/dashboard/preference` },
+    { title: "Update ", src: <Settings2 size={30} />, path: `/dashboard/update` },
     { title: "Reports", src: <ChartNoAxesColumn size={30} />, path: `/dashboard/reports` },
     { title: "Profile", src: <UserPen size={30} />, path: `/dashboard/profile` },
   ];
