@@ -5,8 +5,8 @@ import toast, { Toaster } from "react-hot-toast";
 import RingProgress from "./RingProgress";
 
 interface RingProgressProps {
-  modelName: string;
-  usageLimit: number;
+  Modelname: string;
+  UsageLimit: number;
   totalUsage: number;
 }
 
@@ -30,7 +30,6 @@ export default () => {
         if (model.length === 0) {
           toast.error("You are yet to provide your water usage data!");
         } else {
-            console.log(model);
             setModel(model);            
         }
       } catch (err) {
@@ -65,14 +64,14 @@ export default () => {
   };
   return (
     <>
-          <div className="h-screen flex-1 p-16 w-full">
+          <div className="h-screen flex-1 p-16 w-full mb-14 mt-4">
               <h1 className="text-2xl font-semibold mb-4">Your Water Consumption</h1>
               
               {models.length > 0 && (models.map((model: RingProgressProps, ind) => {
-                  return <RingProgress key={ind} modelName={model?.modelName} usageLimit={model.usageLimit} totalUsage={model.totalUsage} />;
+                  return <RingProgress key={ind} modelname={model?.Modelname} UsageLimit={model?.UsageLimit} totalUsage={model?.totalUsage} />;
               }))}
         
-        <h1 className="text-2xl font-semibold mb-4">Set Water Usage</h1>
+        <h1 className="text-2xl font-semibold mb-4 mt-14">Set Water Usage</h1>
 
         <form onSubmit={handleSubmit} className="space-y-4 flex flex-col">
           <input

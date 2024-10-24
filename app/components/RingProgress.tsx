@@ -1,21 +1,28 @@
-import React from "react";
+'use client';
+import React, { useEffect, useState } from "react";
 
 type RingProgressProps = {
-  modelName: string;
-  usageLimit: number;
+  modelname: string;
+  UsageLimit: number;
   totalUsage: number;
 };
 
-export default ({ modelName, usageLimit, totalUsage }: RingProgressProps) => {
-  const percentage = Math.min((totalUsage / usageLimit) * 100, 100);
+export default ({ modelname, UsageLimit, totalUsage }: RingProgressProps) => {
+  const [percentage, setPercentage] = useState(0);
   const radius = 40;
   const circumference = 2 * Math.PI * radius;
   const offset = circumference - (percentage / 100) * circumference;
 
+  useEffect(() => {
+    const calcpercentage = Math.min((totalUsage / UsageLimit) * 100, 100);
+    setPercentage(calcpercentage);
+
+  }, [])
+
   /* Ring progress bar */
   return (
     <div className="flex flex-col items-center">
-      <h2 className="text-xl font-bold mb-4">{modelName}</h2>
+      <h2 className="text-xl font-bold mb-4">{modelname}</h2>
       <div className="relative">
         <svg className="w-24 h-24 transform rotate-90">
           <circle
