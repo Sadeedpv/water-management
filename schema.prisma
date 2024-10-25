@@ -21,9 +21,10 @@ model User {
 }
 
 model WaterModel{
+  id    String @unique  @default(cuid()) @id
   Model User @relation(fields: [ModelEmail], references: [email])
   ModelEmail String
-  Modelname String @unique
+  Modelname String
   totalUsage Int @default(0)
   UsageLimit Int @default(0)
   Date  DateTime @default(now()) @db.Date

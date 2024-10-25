@@ -37,9 +37,12 @@ export async function PUT(req: NextRequest) {
   let modelname = request.modelname;
   let usage = request.usage;
   let date = request.date;
+  let id = request.id;
+
   if (email && modelname && usage && date) {
       const update = await prisma.waterModel.update({
         where: {
+          id: "12345678",
           ModelEmail: email,
           Modelname: modelname,
           Date: date,
@@ -74,6 +77,7 @@ export async function POST(req: NextRequest) {
   let modelname = request.modelname;
   let limit = request.limit;
   let date = request.date;
+
   if (email && modelname && limit && date) {
     const update = await prisma.waterModel.create({
       data: {
@@ -90,7 +94,10 @@ export async function POST(req: NextRequest) {
     }
   } else {
     try {
-      return NextResponse.json({ "message":"Incorrect POST data" }, { status: 200 });
+      return NextResponse.json(
+        { message: "Incorrect POST data" },
+        { status: 200 }
+      );
     } catch (err) {
       return NextResponse.json({ err });
     }

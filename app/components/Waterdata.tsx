@@ -43,6 +43,7 @@ export default () => {
   const handleSubmit = async (e: any) => {
     // POST /api/watermodel
     e.preventDefault();
+    toast.loading("Your data is being updated");
     const res = await fetch("/api/watermodel", {
       method: "POST",
       headers: {
@@ -65,11 +66,14 @@ export default () => {
   return (
     <>
           <div className="h-screen flex-1 p-16 w-full mb-14 mt-4">
-              <h1 className="text-2xl font-semibold mb-4">Your Water Consumption</h1>
+        <h1 className="text-2xl font-semibold mb-4">Your Water Consumption</h1>
+        <div className="flex flex-row gap-6">
               
               {models.length > 0 && (models.map((model: RingProgressProps, ind) => {
                   return <RingProgress key={ind} modelname={model?.Modelname} UsageLimit={model?.UsageLimit} totalUsage={model?.totalUsage} />;
               }))}
+
+        </div>
         
         <h1 className="text-2xl font-semibold mb-4 mt-14">Set Water Usage</h1>
 

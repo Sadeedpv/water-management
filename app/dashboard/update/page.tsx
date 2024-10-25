@@ -6,21 +6,22 @@ import toast, { Toaster } from "react-hot-toast";
 export default () => {
   // Single state for water usage input
   const { data: session } = useSession();
-  const [waterUsage, setWaterUsage] = useState({});
   const [model, setModel] = useState([]);
-  let i = '1';
+  const [waterUsageArr, setWaterUsageArr] = useState([""]);
 
-  async function handleSubmit(Modelname: string) {
+  async function handleSubmit(Modelname: string, modelid:string, ind:number) {
     // Fetching function or data handling logic here
+    toast.loading("Your data us being updated");
     const res = await fetch("/api/watermodel", {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
+        id: modelid,
         email: session?.user?.email,
         modelname: Modelname,
-        usage: Number(waterUsage),
+        usage: Number(waterUsageArr[ind]),
         date: new Date().toISOString(),
       }),
     });
@@ -50,8 +51,9 @@ export default () => {
           console.log("model", model);
           setModel(model);
           model.map((m: any, ind: any) => {
-            setWaterUsage((prev) => ({ ...prev, [ind]: m?.totalUsage }));
-          })
+            setWaterUsageArr([...waterUsageArr, ""]);
+          });
+          console.log("waterUsage", waterUsageArr);
         }
       } catch (err) {
         console.log(err);
@@ -66,11 +68,12 @@ export default () => {
 
       {model.length > 0 &&
         model.map((model: any, ind) => {
+          console.log(ind)
           return (
             <form
               onSubmit={(e) => {
                 e.preventDefault();
-                handleSubmit(model?.Modelname);
+                handleSubmit(model?.Modelname, model?.id, ind);
               }}
               className="space-y-4 flex flex-row gap-6 mb-6"
               key={ind}
@@ -84,8 +87,12 @@ export default () => {
               <input
                 type="number"
                 name="waterUsage"
-                value={waterUsage.i}
-                onChange={(e) => setWaterUsage(e.target.value)}
+                value={waterUsageArr[ind]}
+                onChange={(e) => {
+                  const updatedArr = [...waterUsageArr]; // Make a copy of the array
+                  updatedArr[ind] = e.target.value; // Update the specific index
+                  setWaterUsageArr(updatedArr);
+                }}
                 placeholder={model?.totalUsage.toString()}
                 className="border p-2 rounded-md w-1/3"
                 required
