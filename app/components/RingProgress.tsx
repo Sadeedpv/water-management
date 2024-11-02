@@ -18,7 +18,7 @@ export default ({ modelname, UsageLimit, totalUsage }: RingProgressProps) => {
     const calcpercentage = Math.min((totalUsage / UsageLimit) * 100, 100);
     setPercentage(calcpercentage);
     if (calcpercentage >= 100) {
-      toast.error("You have exceeded your water usage limit!");
+      toast.error(`You have exceeded your water usage limit for${modelname}!`);
     }
   }, []);
 
