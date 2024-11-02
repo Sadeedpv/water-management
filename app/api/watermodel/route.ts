@@ -42,7 +42,7 @@ export async function PUT(req: NextRequest) {
   if (email && modelname && usage && date) {
       const update = await prisma.waterModel.update({
         where: {
-          id: "12345678",
+          id: id,
           ModelEmail: email,
           Modelname: modelname,
           Date: date,

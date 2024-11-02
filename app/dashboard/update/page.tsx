@@ -9,7 +9,7 @@ export default () => {
   const [model, setModel] = useState([]);
   const [waterUsageArr, setWaterUsageArr] = useState([""]);
 
-  async function handleSubmit(Modelname: string, modelid:string, ind:number) {
+  async function handleSubmit(Modelname: string, modelid: string, ind: number) {
     // Fetching function or data handling logic here
     toast.loading("Your data us being updated");
     const res = await fetch("/api/watermodel", {
@@ -65,48 +65,49 @@ export default () => {
   return (
     <div className="h-screen flex-1 p-24 ms-12 md:ms-52">
       <h1 className="text-2xl font-semibold mb-4">Update Todays Water Usage</h1>
-
-      {model.length > 0 &&
-        model.map((model: any, ind) => {
-          console.log(ind)
-          return (
-            <form
-              onSubmit={(e) => {
-                e.preventDefault();
-                handleSubmit(model?.Modelname, model?.id, ind);
-              }}
-              className="space-y-4 flex flex-row gap-6 mb-6"
-              key={ind}
-            >
-              <input
-                type="text"
-                name="waterModel"
-                value={model?.Modelname}
-                className="border p-2 rounded-md w-1/3"
-              />
-              <input
-                type="number"
-                name="waterUsage"
-                value={waterUsageArr[ind]}
-                onChange={(e) => {
-                  const updatedArr = [...waterUsageArr]; // Make a copy of the array
-                  updatedArr[ind] = e.target.value; // Update the specific index
-                  setWaterUsageArr(updatedArr);
+      <div className="flex flex-col gap-6">
+        {model.length > 0 &&
+          model.map((model: any, ind) => {
+            console.log(ind);
+            return (
+              <form
+                onSubmit={(e) => {
+                  e.preventDefault();
+                  handleSubmit(model?.Modelname, model?.id, ind);
                 }}
-                placeholder={model?.totalUsage.toString()}
-                className="border p-2 rounded-md w-1/3"
-                required
-              />
-
-              <button
-                type="submit"
-                className="bg-blue-600 text-white py-2 px-4 rounded-md font-bold mt-4"
+                className="space-y-4 flex flex-row flex-wrap"
+                key={ind}
               >
-                Submit
-              </button>
-            </form>
-          );
-        })}
+                <input
+                  type="text"
+                  name="waterModel"
+                  value={model?.Modelname}
+                  className="border p-2 rounded-md w-full"
+                />
+                <input
+                  type="number"
+                  name="waterUsage"
+                  value={waterUsageArr[ind]}
+                  onChange={(e) => {
+                    const updatedArr = [...waterUsageArr]; // Make a copy of the array
+                    updatedArr[ind] = e.target.value; // Update the specific index
+                    setWaterUsageArr(updatedArr);
+                  }}
+                  placeholder={model?.totalUsage.toString()}
+                  className="border p-2 rounded-md w-full"
+                  required
+                />
+
+                <button
+                  type="submit"
+                  className="bg-blue-600 text-white py-2 px-4 rounded-md font-bold mt-4"
+                >
+                  Submit
+                </button>
+              </form>
+            );
+          })}
+      </div>
       <Toaster
         toastOptions={{
           duration: 2000,

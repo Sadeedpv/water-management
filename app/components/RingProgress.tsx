@@ -1,5 +1,6 @@
-'use client';
+"use client";
 import React, { useEffect, useState } from "react";
+import toast, { Toaster } from "react-hot-toast";
 
 type RingProgressProps = {
   modelname: string;
@@ -16,8 +17,10 @@ export default ({ modelname, UsageLimit, totalUsage }: RingProgressProps) => {
   useEffect(() => {
     const calcpercentage = Math.min((totalUsage / UsageLimit) * 100, 100);
     setPercentage(calcpercentage);
-
-  }, [])
+    if (calcpercentage >= 100) {
+      toast.error("You have exceeded your water usage limit!");
+    }
+  }, []);
 
   /* Ring progress bar */
   return (
@@ -52,6 +55,12 @@ export default ({ modelname, UsageLimit, totalUsage }: RingProgressProps) => {
           <span className="text-lg font-bold">{Math.round(percentage)}%</span>
         </div>
       </div>
+      <Toaster
+        toastOptions={{
+          duration: 2000,
+          position: "bottom-center",
+        }}
+      />
     </div>
   );
 };
