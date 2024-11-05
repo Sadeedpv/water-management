@@ -1,6 +1,6 @@
 "use client";
 
-import Waterdata from "@/app/components/Waterdata";
+import {Waterdata} from "@/app/components/Waterdata";
 import { baseUrl } from "@/lib/constants";
 import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";

@@ -1,6 +1,6 @@
 "use client";
 
-import Waterdata from "@/app/components/Waterdata";
+import {Waterdata} from "@/app/components/Waterdata";
 
 export default () => {
   return (

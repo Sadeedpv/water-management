@@ -32,6 +32,9 @@ export default () => {
       toast.success("Water usage data updated successfully!");
     }
   }
+  useEffect(() => {
+    
+  }, [])
 
   useEffect(() => {
     // Fetch water usage from /api/watermodel
