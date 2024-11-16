@@ -1,4 +1,5 @@
 "use client";
+import { useSession } from "next-auth/react";
 import React, { useEffect, useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
 
@@ -9,6 +10,7 @@ type RingProgressProps = {
 };
 
 export default ({ modelname, UsageLimit, totalUsage }: RingProgressProps) => {
+  const { data: session } = useSession();
   const [percentage, setPercentage] = useState(0);
   const radius = 40;
   const circumference = 2 * Math.PI * radius;
@@ -19,6 +21,24 @@ export default ({ modelname, UsageLimit, totalUsage }: RingProgressProps) => {
     setPercentage(calcpercentage);
     if (calcpercentage >= 100) {
       toast.error(`You have exceeded your water usage limit for${modelname}!`);
+
+      const sendEmail = async (email: any) => { 
+        
+        const res = await fetch('/api/sendmail', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            email: email,
+          }),
+        });
+        const result = await res.json();
+        console.log(result);
+
+      }
+      // Send email notification
+      sendEmail(session?.user?.email);
     }
   }, []);
 

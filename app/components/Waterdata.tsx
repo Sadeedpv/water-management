@@ -36,11 +36,7 @@ export const Waterdata = () => {
     refreshInterval: 1000,
   });
 
-  console.log(models);
-  console.log("Potential error: " + error);
-  if (models?.length === 0) {
-    toast.error("You are yet to provide your water usage data!");
-  }
+
   const [desc, setDesc] = useState(""); // Initialize with an empty string
   const [waterUsage, setWaterUsage] = useState(""); // Initialize with 0
 
