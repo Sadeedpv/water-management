@@ -22,23 +22,23 @@ export default ({ modelname, UsageLimit, totalUsage }: RingProgressProps) => {
     if (calcpercentage >= 100) {
       toast.error(`You have exceeded your water usage limit for${modelname}!`);
 
-      const sendEmail = async (email: any) => { 
+      // const sendEmail = async (email: any) => { 
         
-        const res = await fetch('/api/sendmail', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            email: email,
-          }),
-        });
-        const result = await res.json();
-        console.log(result);
+      //   const res = await fetch('/api/sendmail', {
+      //     method: 'POST',
+      //     headers: {
+      //       'Content-Type': 'application/json',
+      //     },
+      //     body: JSON.stringify({
+      //       email: email,
+      //     }),
+      //   });
+      //   const result = await res.json();
+      //   console.log(result);
 
-      }
-      // Send email notification
-      sendEmail(session?.user?.email);
+      // }
+      // // Send email notification
+      // sendEmail(session?.user?.email);
     }
   }, []);
 
