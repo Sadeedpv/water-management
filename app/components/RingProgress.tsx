@@ -16,29 +16,38 @@ export default ({ modelname, UsageLimit, totalUsage }: RingProgressProps) => {
   const circumference = 2 * Math.PI * radius;
   const offset = circumference - (percentage / 100) * circumference;
 
+  // sent email only once
+  const localkey = `${session?.user?.email}_${modelname}`;
+
   useEffect(() => {
     const calcpercentage = Math.min((totalUsage / UsageLimit) * 100, 100);
     setPercentage(calcpercentage);
-    if (calcpercentage >= 100) {
-      toast.error(`You have exceeded your water usage limit for${modelname}!`);
+    // send email notification only once
+    const emailsent = localStorage.getItem(localkey);
+    if (calcpercentage >= 100 && !emailsent) {
+      toast.error(`You have exceeded your water usage limit for ${modelname}!`);
 
-      // const sendEmail = async (email: any) => { 
+      const sendEmail = async (email: any) => { 
         
-      //   const res = await fetch('/api/sendmail', {
-      //     method: 'POST',
-      //     headers: {
-      //       'Content-Type': 'application/json',
-      //     },
-      //     body: JSON.stringify({
-      //       email: email,
-      //     }),
-      //   });
-      //   const result = await res.json();
-      //   console.log(result);
+        const res = await fetch('/api/sendmail', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            email: email,
+            model: modelname,
+            total: totalUsage,
+            limit: UsageLimit,
+          }),
+        });
+        const result = await res.json();
+        console.log(result);
 
-      // }
-      // // Send email notification
-      // sendEmail(session?.user?.email);
+      }
+      // Send email notification
+      sendEmail(session?.user?.email);
+      localStorage.setItem(localkey, "true");
     }
   }, []);
 
